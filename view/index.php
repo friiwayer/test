@@ -1,13 +1,13 @@
 <?
-require_once './mod/options.php';
+require_once './mod/conn.php';
 
-Class Page extends Opt
+Class Page extends Conn
 {   
     public  $body;
     public  $form;
     public  $footer;
-    public  $lang;
-       
+    public  $dn=true;
+
     public function head()
     {
         echo 
@@ -18,7 +18,6 @@ Class Page extends Opt
         <link href="'.$this->_main_dir.'/css/style.css" rel="stylesheet" type="text/css" media="all" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
         <script type="text/javascript" src="'.$this->_main_dir.'/js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="'.$this->_main_dir.'/js/jquery-ui.js"></script>
         <script type="text/javascript" src="'.$this->_main_dir.'/js/Jquery.js"></script>        
         </head>
         '
@@ -28,6 +27,7 @@ Class Page extends Opt
     
     public function form()
     {
+    if($this->isEmptyDir('images/')){$hide='dn';}else{$hide='';}
     echo
     '<div class="">
     <form class="form-inline col-centered" method="post" onSubmit="return false;">
@@ -42,31 +42,37 @@ Class Page extends Opt
       <div id="jax"></div>
     </form>
     </div>
-    <div class="rdy dn table-responsive">
-    <div></div>
-    <table class="table"></table>
+    <div class="rdy '.$hide.' table-responsive container">
+    <table class="table table-hover panel panel-default" data-example-id="default-media">'.Page::show_img().'
+    </table>
     </div>
     ';
+    }
+    
+    public static function isEmptyDir($dir){ 
+         return (($files = @scandir($dir)) && count($files) <= 2); 
     }
     
     public function show_img()
     {
     $imagesDir = $this->image_dir;
-    if($open = opendir($imagesDir)){
-    while (($file = readdir($open)) !==FALSE) 
+    if(is_dir('./'.$imagesDir)){
+    $query = 'SELECT * FROM `tst_images` ORDER BY `date` ASC';
+    $select = $this->sql($query);
+    $tr .= '<tr class="panel-heading brtop shdw"><th>#name</th><th>#img</th><th>#path</th><th><a onclick="filtr(this);" href="#" class="up">#date</a></th></tr>';
+    WHILE($tir = mysql_fetch_assoc($select))
     {
-    if ($file!="."&&$file!="..")
-    {
-    if(post('imgid')){
-    $li .= '<li><a><img onClick="get_imagu(this,'.post('imgid').'); return false;" src="'.$imagesDir.''.$file.'" width="30"  /></a></li>';
-    }else{
-    $li .= '<li><a><img onClick="get_imagu(this); return false;" src="'.$imagesDir.''.$file.'" width="30"  /></a></li>';
+    $tr .= '
+    <tr>
+    <td>/00'.$tir['name'].'</td>
+    <td><img width="'.$this->img_w_out.'" height="'.$this->image_h_out.'" src="'.$tir['new_path'].'00'.$tir['name'].'.png"/></td>
+    <td>'.$tir['old_path'].'</td>
+    <td>'.$tir['date'].'</td>
+    </tr>';
+    }return $tr;
+    $dn = false;
     }
-    }
-    }
-    }else{
-    $li = 'wrong direcroty';
-    }echo $li;
+    else{return 'error';$dn= true;}
     }
     
     public function exec_js()
