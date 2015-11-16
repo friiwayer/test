@@ -81,19 +81,33 @@ public function edit_img($array,$dir)
 
 public function inBase_($im)
 {
-    $ter = $this->sql('SELECT * FROM `tst_images` WHERE `name` = "'.$im[3].'"');
-    if(!$ter){
+
     $date = date('Y-m-d',$im[1]);
     $query = 'INSERT INTO `tst_images` (`name`,`old_path`,`new_path`,`date`) 
     VALUES ("'.$im[3].'","'.$im[2].'","'.$this->image_dir.'","'.$date.'")';
     $this->sql($query);
-    }
 }
 
 public function showImg($order='date ASC')
 {
     $query = 'SELECT * FROM `tst_images` ORDER BY '.$order;
     $select = $this->sql($query);
+    if($select)
+    {
+    $tr .= '<tr class="panel-heading brtop shdw"><th>#name</th><th>#img</th><th>#path</th><th><a onclick="filtr(this);" href="#">#date</a></th></tr>';
+    while($table = mysql_fetch_array($select))
+    {
+    $tr .= '
+    <tr>
+    <td>/00'.$table['name'].'</td>
+    <td><img width="'.$this->img_w_out.'" height="'.$this->image_h_out.'" src="'.$table['new_path'].'00'.$table['name'].'.png"/></td>
+    <td>'.$table['old_path'].'</td>
+    <td>'.$table['date'].'</td>
+    </tr>';
+    }
+    echo $tr;
+    }
+    else{echo false;}
 }
 
 ///image
@@ -169,7 +183,8 @@ public function explodeAll($string,$tpl,$tp_='')
     for($f=1;$f<=count($ar)-1;$f++){
         $ar1 = explode(' ',$ar[$f]);
         $te = explode($tp_,$ar1[0]);
-        $return[$f] = array($ar1[0],$ar1[1],$te[0].$tp_,$te[1]);
+        $name = substr($te[1], 0, -4);
+        $return[$f] = array($ar1[0],$ar1[1],$tpl.$te[0].$tp_,$name);
     }
     return $return;
     }else{return false;}
@@ -205,12 +220,10 @@ public function blur($fes,$type,$url)
 $affrade = new Ajax;
 if($affrade->check())
 {
-    switch($_POST)
-    {
-    case'parse':$affrade->blur('parse',$_POST,$affrade->grab);
-    break;
-    
-    case'getIm':$affrade->showImg();
-    break;
-    }
+if($_POST['parse']){
+$affrade->blur('parse',$_POST,$affrade->grab);
+}
+if($_POST['getIm']){ 
+$affrade->showImg();
+}
 }
