@@ -135,4 +135,5 @@ h2{
     width:400px;
     text-align:center;
 }
+table{border-radius:5px;}.shdw{background:#f5f5f5;}.table tbody>tr>td{ vertical-align: middle!important;}
 #jax{background:url(http://www.kivach.ru/stoimost-programm/ajax-loader.gif)no-repeat center; width:189px; height:24px;margin:20px auto;display:none;}
