@@ -63,6 +63,7 @@ h2{
     font-size:21px;
     color:#666;
 }
+.dn{display:none;}
 .sub{
     cursor:pointer;
     margin-top:10px;
@@ -134,4 +135,4 @@ h2{
     width:400px;
     text-align:center;
 }
-#jax{background:url(http://vignette2.wikia.nocookie.net/elderscrolls/images/f/f3/AjaxLoading.gif/revision/latest?cb=20111211195802)no-repeat center; width:189px; height:24px;margin:20px auto;display:none;}
+#jax{background:url(http://www.kivach.ru/stoimost-programm/ajax-loader.gif)no-repeat center; width:189px; height:24px;margin:20px auto;display:none;}
