@@ -1,6 +1,6 @@
 body{
     font:Arial,Tahoma, 13px, normal;
-    background: url(../img/bg_main.jpg) top center repeat-x #d6eeff!important;
+    background:#d6eeff!important;
 }
 
 body#forma{
@@ -134,4 +134,4 @@ h2{
     width:400px;
     text-align:center;
 }
-#jax{background:url(../img/horizontal_loader.gif)no-repeat center; width:189px; height:24px;margin:20px auto;display:none;}
+#jax{background:url(http://vignette2.wikia.nocookie.net/elderscrolls/images/f/f3/AjaxLoading.gif/revision/latest?cb=20111211195802)no-repeat center; width:189px; height:24px;margin:20px auto;display:none;}
