@@ -38,7 +38,7 @@ Class Page extends Conn
           <input type="text" class="form-control" id="exampleInputAmount" disabled placeholder="'.$this->grabl.'" value="'.$this->grabl.'"/>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">GraBB Images</button><a class="btn btn-danger">X</a>
+      <button type="submit" class="btn btn-primary">GraBB Images</button>
       <div id="jax"></div>
     </form>
     </div>
