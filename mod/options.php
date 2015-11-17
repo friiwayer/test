@@ -9,4 +9,6 @@ Class Opt {
     public $_pref = 'tst_';
     public $grabl = 'http://cronixinc.com/common/php_test_files/images.txt';
     public $image_dir = '/images/';
+    public $img_w_out = 50;
+    public $image_h_out = 50;
 }
