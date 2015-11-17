@@ -100,12 +100,6 @@ public function inBase_($im)
     $this->sql($query);
 }
 
-public function hash_()
-{
-    $url = $_SERVER['REQUEST_URI'];
-    
-}
-
 public function showImg($order='`date` ASC')
 {   
     $dir = $order =='`date` DESC'?'down':'up';
