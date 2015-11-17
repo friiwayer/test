@@ -80,9 +80,9 @@ public function edit_img($array,$dir)
             $this->save('..'.$dir.'00'.$s.'.jpg',IMAGETYPE_JPEG);
             }elseif($width <= $thumb_width)
             {
-            $src = $this->image;
-            imagefill($dest,0,0,$whiteBackground);            
+            $src = $this->image;          
             imagecopy($dest,$src,(($thumb_width - $width)/ 2), (($thumb_height - $height) / 2), 0, 0, $thumb_width, $thumb_height);
+            imagefill($dest,0,0,$whiteBackground);              
             $this->image = $dest;
             $this->save('..'.$dir.'00'.$s.'.jpg',IMAGETYPE_JPEG);
             }
@@ -193,8 +193,8 @@ public function resize($width,$height){
       if(($this->image_type == IMAGETYPE_GIF) || ($this->image_type==IMAGETYPE_PNG)){
       imagealphablending($new_image, false);
       imagesavealpha($new_image,true);
-      $transparent = imagecolorallocatealpha($new_image, 255, 255, 255, 127);
-      imagefilledrectangle($new_image, 0, 0, $width, $height, $transparent);
+      $transparent = imagecolorallocatealpha($new_image, 255, 255, 255, 0);
+      imagefilledrectangle($new_image, 0, 0, 600, 600, $transparent);
       imagecopyresampled($new_image, $this->image, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
       }else
       {
