@@ -38,7 +38,7 @@ Class Page extends Conn
           <input type="text" class="form-control" id="exampleInputAmount" disabled placeholder="'.$this->grabl.'" value="'.$this->grabl.'"/>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">GraBB Images</button>
+      <button type="submit" class="btn btn-primary">GraBB Images</button><a class="btn btn-danger">X</a>
       <div id="jax"></div>
     </form>
     </div>
@@ -59,13 +59,13 @@ Class Page extends Conn
     if(is_dir('./'.$imagesDir)){
     $query = 'SELECT * FROM `tst_images` ORDER BY `date` ASC';
     $select = $this->sql($query);
-    $tr .= '<tr class="panel-heading brtop shdw"><th>#name</th><th>#img</th><th>#path</th><th><a onclick="filtr(this);" href="#" class="up">#date</a></th></tr>';
+    $tr .= '<tr class="panel-heading brtop shdw"><th>#name</th><th>#img</th><th>#path</th><th><a onclick="filtr(this);return false;" href="#" class="up">#date <span class="caret-up"></span></a></th></tr>';
     WHILE($tir = mysql_fetch_assoc($select))
     {
     $tr .= '
     <tr>
     <td>/00'.$tir['name'].'</td>
-    <td><img width="'.$this->img_w_out.'" height="'.$this->image_h_out.'" src="'.$tir['new_path'].'00'.$tir['name'].'.png"/></td>
+    <td><img width="'.$this->img_w_out.'" height="'.$this->image_h_out.'" src="'.$tir['new_path'].'00'.$tir['name'].'.jpg"/></td>
     <td>'.$tir['old_path'].'</td>
     <td>'.$tir['date'].'</td>
     </tr>';
